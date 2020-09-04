@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/Product';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from '../product-service.service';
 
 @Component({
@@ -19,20 +19,19 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
+      this.router.paramMap.subscribe((params => {
+        this.productId = params.get("id");
+      }))
+  
+      this.currentProduct = this.getProductById(this.productId);
+      
     })
     
-    this.router.paramMap.subscribe((params => {
-      this.productId = params.get("id");
-    }))
-
-    this.currentProduct = this.getProductById(this.productId);
     
   }
 
-  getProductById(id: string): any {
-    this.productService.getProducts().subscribe((data) => {
-      return data.find(product => product.id === id);
-    })
+  getProductById(id: string): Product {
+      return this.products.find(product => product.id === id);
   }
 
 }
