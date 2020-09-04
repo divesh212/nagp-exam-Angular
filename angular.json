@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nagp-Exam-Angular"
+    }
+  },
+  "defaultProject": "nagp-Exam-Angular",
+  "cli": {
+    "analytics": false
+  }
 }
